@@ -65,74 +65,49 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// 渲染模板
 	tmpl.Execute(w, msg)
 }
+func index2(w http.ResponseWriter, r *http.Request) {
+	// 定义模板(使用的模板继承的方式)
+	// 解析模板
+	// 获取项目的绝对路径
+
+	// 解析模板
+	t, err := template.ParseFiles("./block.tmpl", "./index2.tmpl")
+
+	if err != nil {
+		fmt.Printf("parse templates failed, err:%v \n", err)
+		return
+	}
+
+	name := "小公主"
+
+	// 渲染模板
+	t.ExecuteTemplate(w, "index2.tmpl", name)
+}
+
+func home2(w http.ResponseWriter, r *http.Request) {
+	// 定义模板(使用的模板继承的方式)
+	// 解析模板
+	t, err := template.ParseFiles("./block.tmpl", "./home2.tmpl")
+
+	if err != nil {
+		fmt.Printf("parse templates failed, err:%v \n", err)
+		return
+	}
+
+	name := "小公主"
+
+	// 渲染模板
+	t.ExecuteTemplate(w, "home2.tmpl", name)
+}
 
 func main() {
 	http.HandleFunc("/index", index)
 	http.HandleFunc("/home", home)
-	//http.HandleFunc("/index2", index2)
-	//http.HandleFunc("/home2", home2)
+	http.HandleFunc("/index2", index2)
+	http.HandleFunc("/home2", home2)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println("HTTP server failed,err:", err)
 		return
 	}
 }
-
-/**
- * @Description 首页
- * @Param
- * @return
-
-func index2(w http.ResponseWriter, r *http.Request) {
-	// 定义模板(使用的模板继承的方式)
-	// 解析模板
-	// 获取项目的绝对路径
-	wd, err := os.Getwd()
-	if err != nil {
-		fmt.Printf("get wd failed, err:%v \n", wd)
-		return
-	}
-
-	// 解析模板
-	t, err := template.ParseFiles(wd+"\\lesson07\\templates\\base.tmpl", wd+"\\lesson07\\templates\\index2.tmpl")
-
-	if err != nil {
-		fmt.Printf("parse templates failed, err:%v \n", err)
-		return
-	}
-
-	msg := "小公主"
-
-	// 渲染模板
-	t.ExecuteTemplate(w, "index2.tmpl", msg)
-}
-**/
-/**
- * @Description 主页
- * @Param
- * @return
-
-func home2(w http.ResponseWriter, r *http.Request) {
-	// 定义模板(使用的模板继承的方式)
-	// 解析模板
-	// 获取项目的绝对路径
-	wd, err := os.Getwd()
-	if err != nil {
-		fmt.Printf("get wd failed, err:%v \n", wd)
-		return
-	}
-
-	// 解析模板
-	t, err := template.ParseFiles(wd+"\\lesson07\\templates\\base.tmpl", wd+"\\lesson07\\templates\\home2.tmpl")
-
-	if err != nil {
-		fmt.Printf("parse templates failed, err:%v \n", err)
-		return
-	}
-
-	msg := "小公主"
-
-	// 渲染模板
-	t.ExecuteTemplate(w, "home2.tmpl", msg)
-}
-**/
