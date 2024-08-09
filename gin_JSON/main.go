@@ -21,6 +21,7 @@ func main() {
 		Name string
 		Age  int
 		Msg  string
+		//灵活使用tag来做定制化操作
 	}
 	r.GET("/other", func(c *gin.Context) {
 		data := msg{
