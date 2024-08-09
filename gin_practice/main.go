@@ -16,6 +16,12 @@ func main() {
 			return template.HTML(str)
 		}, //这里需要在后面加上，
 	})
+	//如需加载静态文件，也应在解析前声明
+	r.Static("/xyz", "./statics")
+	//router.Static(relativePath, root)：
+	//relativePath：请求的 URL 路径前缀。当用户访问 /xyz/ 路径时，Gin 会查找 root 目录中的文件。
+	//root：静态文件的根目录。可以是项目中的相对路径或绝对路径。
+
 	//解析模板
 	r.LoadHTMLFiles("./test.tmpl")
 	//渲染模板
